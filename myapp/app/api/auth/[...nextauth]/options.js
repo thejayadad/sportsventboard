@@ -19,6 +19,7 @@ export const options = {
                 role: userRole,
                 name: profile.name.replace(" ", "").toLowerCase(),
                 avatar: profile.picture,
+                email: profile.email,             
        
               };
             },
@@ -29,7 +30,16 @@ export const options = {
     callbacks: {
         async session({ session }) {
           const sessionUser = await User.findOne({ email: session.user.email });
-          session.user.id = sessionUser._id.toString();
+
+          const fullUserInfo = {
+            ...sessionUser._doc,
+            _id: sessionUser._id.toString(),
+            role: sessionUser.userRole,
+            name: sessionUser.name.replace(" ", "").toLowerCase(),
+            email: sessionUser.email,
+            avatar: sessionUser.picture,
+          }
+          session.user = fullUserInfo;
     
           return session;
         },
@@ -44,6 +54,8 @@ export const options = {
                 email: profile.email,
                 name: profile.name.replace(" ", "").toLowerCase(),
                 avatar: profile.picture,
+                role: profile.userRole,
+                email: profile.email,             
        
               });
             }

@@ -1,12 +1,15 @@
 import React from 'react'
 import { addPost } from '@/lib/actions'
 
+
 const NewPost = () => {
+
   return (
     <section className='px-4 py-12'>
       <div className='max-w-screen-xl mx-auto flex flex-col gap-8'>
         <h2 className='text-center'>New Post</h2>
-        <form action={addPost} 
+        <form 
+       action={addPost} 
         className='flex flex-col'
         >
           <input type="text" placeholder="title" name="title" required />
